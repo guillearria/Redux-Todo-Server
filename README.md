@@ -12,3 +12,4 @@
 - knex-cleaner
 - postgres (productions)
 - sqlite3 (development)
+- nodemon (development)

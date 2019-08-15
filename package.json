@@ -4,7 +4,8 @@
   "description": "server for redux-todo app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "server": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,20 @@
   "bugs": {
     "url": "https://github.com/sapinspys/Redux-Todo-Server/issues"
   },
-  "homepage": "https://github.com/sapinspys/Redux-Todo-Server#readme"
+  "homepage": "https://github.com/sapinspys/Redux-Todo-Server#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "helmet": "^3.20.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.19.1",
+    "knex-cleaner": "^1.3.0",
+    "pg": "^7.12.1",
+    "sqlite3": "^4.0.9"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
 }
