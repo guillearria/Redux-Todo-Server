@@ -32,19 +32,44 @@ describe("todoModel.js", () => {
     });
   });
 
+  describe('getAll()', () => {
+    it('should return empty array if no todo items exist', () => {
+      const todos = await Todo.getAll()
+
+      expect(todos).toHaveLength(0)
+    });
+
+    it('should return an array with single todo object', () => {
+      await Todo.insert({ name: "Clean out garage" });
+
+      const todos = await Todo.getAll()
+
+      expect(todos).toHaveLength(1)
+    });
+
+    it('should return an array with two todo objects', () => {
+      await Todo.insert({ name: "Clean out garage" });
+      await Todo.insert({ name: "Pay parking ticket" });
+
+      const todos = await Todo.getAll()
+
+      expect(todos).toHaveLength(2)
+    });
+  });
+
   describe('delete()', () => {
-    
+    it('should delete the todo item with given ID', () => {
+      await Todo.insert({ name: "Clean out garage" });
+
+      const todo = 
+    });
   });
 
   describe('toggleCompleted()', () => {
     
   });
 
-  describe('allFilter()', () => {
-    
-  });
-
-  describe('completedFilter()', () => {
+  describe('clearCompleted', () => {
     
   });
 });
