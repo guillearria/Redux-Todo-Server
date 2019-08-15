@@ -45,6 +45,24 @@ describe("todoRouter.js", () => {
           });
         });
     });
+
+    it("should return 400 BAD REQUEST if given empty item string", () => {
+      return request(server)
+        .post("/api/todos")
+        .send({ item: "" })
+        .then(res => {
+          expect(res.status).toBe(404);
+        });
+    });
+
+    it("should return error message if given empty item string", () => {
+      return request(server)
+        .post("/api/todos")
+        .send({ item: "" })
+        .then(res => {
+          expect(res.body).toEqual({ message: "Todo item field is required." });
+        });
+    });
   });
 
   describe("GET /api/todos", () => {
