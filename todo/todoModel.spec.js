@@ -78,10 +78,36 @@ describe("todoModel.js", () => {
   });
 
   describe('toggleCompleted()', () => {
+    it('should toggle the completed flag of given object ID to completed', () => {
+      await Todo.insert({ name: "Clean out garage" });
+
+      const todo = Todo.toggleCompleted(1)
+
+      expect(todo).toEqual({ name: "Clean out garage", completed: "true" });
+    });
     
+    it('should toggle the completed flag of given object ID to false', () => {
+      await Todo.insert({ name: "Clean out garage" });
+
+      await Todo.toggleCompleted(1)
+      const todo = Todo.toggleCompleted(1)
+
+      expect(todo).toEqual({ name: "Clean out garage", completed: "false" });
+    });
   });
 
-  describe('clearCompleted', () => {
-    
+  describe('clearCompleted()', () => {
+    it('should remove all completed todo items and return updated array', () => {
+      await Todo.insert({ name: "Clean out garage" });
+      await Todo.insert({ name: "Pay parking ticket" });
+      await Todo.insert({ name: "Buy groceries" });
+
+      await Todo.toggleCompleted(1)
+      await Todo.toggleCompleted(3)
+
+      const todos = await Todo.clearCompleted()
+
+      expect(todos).toEqual([{ name: "Pay parking ticket", completed: "false" }])
+    });
   });
 });
