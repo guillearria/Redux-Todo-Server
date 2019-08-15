@@ -58,10 +58,22 @@ describe("todoModel.js", () => {
   });
 
   describe('delete()', () => {
-    it('should delete the todo item with given ID', () => {
+    it('should delete the todo item with given ID and return empty array', () => {
       await Todo.insert({ name: "Clean out garage" });
 
-      const todo = 
+      const todos = Todo.delete(1)
+
+      expect(todos).toHaveLength(0)
+    });
+
+    it('should delete the todo item with given ID and return updated array', () => {
+      await Todo.insert({ name: "Clean out garage" });
+      await Todo.insert({ name: "Pay parking ticket" });
+
+      const todos = Todo.delete(2)
+
+      expect(todos).toHaveLength(1)
+      expect(todos).toEqual([{ name: "Clean out garage", completed: "false" }])
     });
   });
 
