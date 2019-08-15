@@ -25,10 +25,8 @@ describe("todoModel.js", () => {
       expect(todos).toHaveLength(2);
     });
 
-    it("should add a todo item that includes name and completed status", async () => {
-      await Todo.insert({ name: "Clean out garage" });
-
-      const todo = await db("todos").first();
+    it("should return object with name and completed status", async () => {
+      const todo = await Todo.insert({ name: "Clean out garage" });
 
       expect(todo).toEqual({ name: "Clean out garage", completed: "false" });
     });
