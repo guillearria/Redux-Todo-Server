@@ -14,5 +14,5 @@
 - sqlite3 
 - nodemon (development)
 - supertest (development)
-- jest (development)
+- jest (development) --> `npx jest --init`
 - cross-env (development)
