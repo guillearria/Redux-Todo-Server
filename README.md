@@ -11,5 +11,8 @@
 - helmet
 - knex-cleaner
 - postgres (productions)
-- sqlite3 (development)
+- sqlite3 
 - nodemon (development)
+- supertest (development)
+- jest (development)
+- cross-env (development)
