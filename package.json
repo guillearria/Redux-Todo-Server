@@ -1,0 +1,19 @@
+{
+  "name": "redux-todo-server",
+  "version": "1.0.0",
+  "description": "server for redux-todo app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sapinspys/Redux-Todo-Server.git"
+  },
+  "author": "Guillermo Arria-Devoe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sapinspys/Redux-Todo-Server/issues"
+  },
+  "homepage": "https://github.com/sapinspys/Redux-Todo-Server#readme"
+}
