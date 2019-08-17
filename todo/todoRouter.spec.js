@@ -105,4 +105,62 @@ describe("todoRouter.js", () => {
         });
     });
   });
+
+  describe('PUT /api/todos/:id', () => {
+    it("should return 200 OK", () => {
+      await Todo.insert({ item: "Clean out garage" });
+
+      return request(server)
+        .put("/api/todos/1")
+        .send({ completed: "true" })
+        .then(res => {
+          expect(res.status).toBe(200);
+        });
+    });
+
+    it("should return data in JSON", async () => {
+      await Todo.insert({ item: "Clean out garage" });
+
+      return request(server)
+        .put("/api/todos/1")
+        .send({ completed: "true" })
+        .then(res => {
+          expect(res.type).toMatch(/json/);
+          expect(res.type).toBe("application/json");
+        });
+    });
+
+    it('should return the updated todo item', () => {
+      await Todo.insert({ item: "Clean out garage" });
+
+      return request(server)
+        .put("/api/todos/1")
+        .send({ completed: "true" })
+        .then(res => {
+          expect(res.body).toEqual({
+            id: 1,
+            item: "Clean out garage",
+            completed: "true"
+          });
+        });
+    });
+
+    it('should return a 404 NOT FOUND status if todo ID does not exist', () => {
+      return request(server)
+        .put("/api/todos/1")
+        .send({ completed: "true" })
+        .then(res => {
+          expect(res.status).toBe(404);
+        });
+    });
+
+    it('should return an error message if todo ID does not exist', () => {
+      return request(server)
+        .put("/api/todos/1")
+        .send({ completed: "true" })
+        .then(res => {
+          expect(res.body).toEqual({ message: "Todo item not found." });
+        });
+    });
+  });
 });
