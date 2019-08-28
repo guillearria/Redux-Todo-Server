@@ -25,10 +25,10 @@ describe("todoModel.js", () => {
       expect(todos).toHaveLength(2);
     });
 
-    it("should return object with item and completed status", async () => {
+    it("should return object array with new todo item included", async () => {
       const todo = await Todo.insert({ item: "Clean out garage" });
 
-      expect(todo).toEqual({ id:1, item: "Clean out garage", completed: "false" });
+      expect(todo).toEqual([{ id:1, item: "Clean out garage", completed: "false" }]);
     });
   });
 
@@ -54,6 +54,13 @@ describe("todoModel.js", () => {
       const todos = await Todo.getAll()
 
       expect(todos).toHaveLength(2)
+    });
+
+    it("should return todo object array", async () => {
+      await Todo.insert({ item: "Clean out garage" });
+      await Todo.insert({ item: "Pay parking ticket" });
+
+      expect(todo).toEqual([{ id:1, item: "Clean out garage", completed: "false" }, { id:2, item: "Pay parking ticket", completed: "false" }]);
     });
   });
 
