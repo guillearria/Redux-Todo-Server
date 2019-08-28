@@ -130,18 +130,18 @@ describe("todoRouter.js", () => {
         });
     });
 
-    it('should return the updated todo item', () => {
+    it('should return the updated todo item array', () => {
       await Todo.insert({ item: "Clean out garage" });
 
       return request(server)
         .put("/api/todos/1")
         .send({ completed: "true" })
         .then(res => {
-          expect(res.body).toEqual({
+          expect(res.body).toEqual([{
             id: 1,
             item: "Clean out garage",
             completed: "true"
-          });
+          }]);
         });
     });
 
