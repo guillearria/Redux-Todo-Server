@@ -26,5 +26,20 @@ async function remove(id) {
   return getAll();
 }
 
-function toggleCompleted() {}
-function clearCompleted() {}
+function toggleCompleted(id) {
+  await db("todos")
+    .where({ id })
+    .update({
+      completed: true
+    })
+
+  return getAll();
+}
+
+function clearCompleted() {
+  await db("todos")
+    .where({ completed: true })
+    .del()
+
+  return getAll();
+}
