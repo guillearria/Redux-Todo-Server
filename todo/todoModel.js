@@ -1,23 +1,30 @@
 const db = require("../data/dbConfig");
 
 module.exports = {
-  insert, 
-  delete,
+  insert,
+  remove,
   getAll,
   toggleCompleted,
   clearCompleted
-}
+};
 
 function getAll() {
-  return db('todos')
+  return db("todos");
 }
 
 async function insert(todo) {
-  await db('todos').insert(todo, "id")
+  await db("todos").insert(todo, "id");
 
-  return getAll()
+  return getAll();
 }
 
-function delete() {}
+async function remove(id) {
+  await db("todos")
+    .where({ id })
+    .del();
+
+  return getAll();
+}
+
 function toggleCompleted() {}
 function clearCompleted() {}
