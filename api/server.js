@@ -3,7 +3,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 // const authRouter = require("./auth/auth-router");
-const todoRouter = require("./todo/todoRouter");
+const todoRouter = require("../todo/todoRouter");
 
 const server = express();
 
