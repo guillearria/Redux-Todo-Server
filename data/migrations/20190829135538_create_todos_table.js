@@ -5,7 +5,7 @@ exports.up = function(knex) {
 
       todos.string("item", 128).notNullable()
 
-      todos.boolean("completed").defaultTo(false)
+      todos.string("completed", 128).defaultTo("false")
     })  
 };
 

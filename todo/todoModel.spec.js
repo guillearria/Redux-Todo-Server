@@ -5,6 +5,7 @@ const Todo = require("./todoModel.js");
 describe("todoModel.js", () => {
   beforeEach(async () => {
     await db("todos").truncate(); // Clears DB before each test
+    console.log('inside before each')
   });
 
   describe("insert()", () => {
@@ -47,7 +48,7 @@ describe("todoModel.js", () => {
       expect(todos).toHaveLength(1)
     });
 
-    it('should return an array with two todo objects', () => {
+    it('should return an array with two todo objects', async () => {
       await Todo.insert({ item: "Clean out garage" });
       await Todo.insert({ item: "Pay parking ticket" });
 
@@ -65,20 +66,20 @@ describe("todoModel.js", () => {
   });
 
   describe('remove()', () => {
-    it('should delete the todo item with given ID and return empty array', () => {
+    it('should remove the todo item with given ID and return empty array', async () => {
       await Todo.insert({ item: "Clean out garage" });
 
-      const todos = Todo.delete(1)
+      const todos = Todo.remove(1)
 
       expect(todos).toHaveLength(0)
       expect(todos).toEqual([])
     });
 
-    it('should delete the todo item with given ID and return updated object array', () => {
+    it('should remove the todo item with given ID and return updated object array', async () => {
       await Todo.insert({ item: "Clean out garage" });
       await Todo.insert({ item: "Pay parking ticket" });
 
-      const todos = Todo.delete(2)
+      const todos = Todo.remove(2)
 
       expect(todos).toHaveLength(1)
       expect(todos).toEqual([{ id:1, item: "Clean out garage", completed: "false" }])
@@ -86,7 +87,7 @@ describe("todoModel.js", () => {
   });
 
   describe('toggleCompleted()', () => {
-    it('should toggle the completed flag of given object ID to completed', () => {
+    it('should toggle the completed flag of given object ID to completed', async () => {
       await Todo.insert({ item: "Clean out garage" });
 
       const todo = Todo.toggleCompleted(1)
@@ -94,7 +95,7 @@ describe("todoModel.js", () => {
       expect(todo).toEqual([{ id:1, item: "Clean out garage", completed: "true" }]);
     });
     
-    it('should toggle the completed flag of given object ID to false', () => {
+    it('should toggle the completed flag of given object ID to false', async () => {
       await Todo.insert({ item: "Clean out garage" });
 
       await Todo.toggleCompleted(1)
@@ -105,7 +106,7 @@ describe("todoModel.js", () => {
   });
 
   describe('clearCompleted()', () => {
-    it('should remove all completed todo items and return updated array', () => {
+    it('should remove all completed todo items and return updated array', async () => {
       await Todo.insert({ item: "Clean out garage" });
       await Todo.insert({ item: "Pay parking ticket" });
       await Todo.insert({ item: "Buy groceries" });
