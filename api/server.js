@@ -12,7 +12,7 @@ server.use(express.json());
 server.use(cors());
 
 // server.use("/api", authRouter);
-server.use("/api", todoRouter);
+server.use("/api/todos", todoRouter);
 
 server.get("/", (req, res) => {
   res.send(
