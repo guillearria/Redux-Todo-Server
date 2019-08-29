@@ -1,6 +1,6 @@
 const request = require("supertest"); // << install this as -D
 
-const server = require("./server.js"); // << the System Under Test (SUT)
+const server = require("../api/server.js"); // << the System Under Test (SUT)
 
 const Todo = require("./todoModel.js");
 
@@ -107,7 +107,7 @@ describe("todoRouter.js", () => {
   });
 
   describe('PUT /api/todos/:id', () => {
-    it("should return 200 OK", () => {
+    it("should return 200 OK", async () => {
       await Todo.insert({ item: "Clean out garage" });
 
       return request(server)
@@ -130,7 +130,7 @@ describe("todoRouter.js", () => {
         });
     });
 
-    it('should return the updated todo item array', () => {
+    it('should return the updated todo item array', async () => {
       await Todo.insert({ item: "Clean out garage" });
 
       return request(server)

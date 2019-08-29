@@ -33,13 +33,13 @@ describe("todoModel.js", () => {
   });
 
   describe('getAll()', () => {
-    it('should return empty array if no todo items exist', () => {
+    it('should return empty array if no todo items exist', async () => {
       const todos = await Todo.getAll()
 
       expect(todos).toHaveLength(0)
     });
 
-    it('should return an array with single todo object', () => {
+    it('should return an array with single todo object', async () => {
       await Todo.insert({ item: "Clean out garage" });
 
       const todos = await Todo.getAll()

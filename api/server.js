@@ -15,9 +15,7 @@ server.use(cors());
 server.use("/api/todos", todoRouter);
 
 server.get("/", (req, res) => {
-  res.send(
-    "Server running OK."
-  );
+  res.send({ api: "Server OK" })
 });
 
 module.exports = server;
