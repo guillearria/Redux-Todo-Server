@@ -27,10 +27,13 @@ async function remove(id) {
 }
 
 async function toggleCompleted(id) {
+  const { completed } = await db("todos").where({ id }).first()
+  // Could be converted into getById()
+
   await db("todos")
     .where({ id })
     .update({
-      completed: true
+      completed: (completed === "false" ? "true" : "false")
     })
 
   return getAll();
@@ -38,7 +41,7 @@ async function toggleCompleted(id) {
 
 async function clearCompleted() {
   await db("todos")
-    .where({ completed: true })
+    .where({ completed: "true" })
     .del()
 
   return getAll();

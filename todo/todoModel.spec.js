@@ -71,7 +71,7 @@ describe("todoModel.js", () => {
     it('should remove the todo item with given ID and return empty array', async () => {
       await Todo.insert({ item: "Clean out garage" });
 
-      const todos = Todo.remove(1)
+      const todos = await Todo.remove(1)
 
       expect(todos).toHaveLength(0)
       expect(todos).toEqual([])
@@ -81,7 +81,7 @@ describe("todoModel.js", () => {
       await Todo.insert({ item: "Clean out garage" });
       await Todo.insert({ item: "Pay parking ticket" });
 
-      const todos = Todo.remove(2)
+      const todos = await Todo.remove(2)
 
       expect(todos).toHaveLength(1)
       expect(todos).toEqual([{ id:1, item: "Clean out garage", completed: "false" }])
@@ -89,10 +89,10 @@ describe("todoModel.js", () => {
   });
 
   describe('toggleCompleted()', () => {
-    it('should toggle the completed flag of given object ID to completed', async () => {
+    it('should toggle the completed flag of todo object to completed', async () => {
       await Todo.insert({ item: "Clean out garage" });
 
-      const todo = Todo.toggleCompleted(1)
+      const todo = await Todo.toggleCompleted(1)
 
       expect(todo).toEqual([{ id:1, item: "Clean out garage", completed: "true" }]);
     });
@@ -101,7 +101,7 @@ describe("todoModel.js", () => {
       await Todo.insert({ item: "Clean out garage" });
 
       await Todo.toggleCompleted(1)
-      const todo = Todo.toggleCompleted(1)
+      const todo = await Todo.toggleCompleted(1)
 
       expect(todo).toEqual([{ id:1, item: "Clean out garage", completed: "false" }]);
     });
