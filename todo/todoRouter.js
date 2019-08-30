@@ -10,7 +10,7 @@ router.get("/", async (req,res) => {
     
     res.status(200).json(todos)
   } catch (error) {
-    res.status(500).json({ error: "Server Error"})
+    res.status(500).json({ error: "Server error."})
   }
 })
 
@@ -24,7 +24,17 @@ router.post("/", async (req, res) => {
       res.status(400).json({ error: "Todo item field is required." })
     }
   } catch (error) {
-    res.status(500).json({ error: "Server Error"})
+    res.status(500).json({ error: "Server error."})
+  }
+})
+
+router.put("/:id", (req, res) => {
+  try {
+    const todos = await db.toggleCompleted(req.params.id)
+
+    
+  } catch (error) {
+    res.status(500).json({ error: "Server error."})
   }
 })
 
