@@ -3,6 +3,7 @@ const request = require("supertest"); // << install this as -D
 const server = require("../api/server.js"); // << the System Under Test (SUT)
 
 const Todo = require("./todoModel.js");
+const db = require("../data/dbConfig")
 
 describe("todoRouter.js", () => {
   beforeEach(async () => {
@@ -33,16 +34,16 @@ describe("todoRouter.js", () => {
         });
     });
 
-    it("should return todo object as the body", () => {
+    it("should return todo object array as the body", () => {
       return request(server)
         .post("/api/todos")
         .send({ item: "Clean out garage" })
         .then(res => {
-          expect(res.body).toEqual({
+          expect(res.body).toEqual([{
             id: 1,
             item: "Clean out garage",
             completed: "false"
-          });
+          }]);
         });
     });
 
@@ -51,7 +52,7 @@ describe("todoRouter.js", () => {
         .post("/api/todos")
         .send({ item: "" })
         .then(res => {
-          expect(res.status).toBe(404);
+          expect(res.status).toBe(400);
         });
     });
 
@@ -60,7 +61,7 @@ describe("todoRouter.js", () => {
         .post("/api/todos")
         .send({ item: "" })
         .then(res => {
-          expect(res.body).toEqual({ message: "Todo item field is required." });
+          expect(res.body).toEqual({ error: "Todo item field is required." });
         });
     });
   });
@@ -85,7 +86,7 @@ describe("todoRouter.js", () => {
 
     it("should return an empty array as the body", () => {
       return request(server)
-        .get("/")
+        .get("/api/todos")
         .then(res => {
           expect(res.body).toEqual([]);
         });
@@ -96,7 +97,7 @@ describe("todoRouter.js", () => {
       await Todo.insert({ item: "Pay parking ticket" });
 
       return request(server)
-        .get("/")
+        .get("/api/todos")
         .then(res => {
           expect(res.body).toEqual([
             { id: 1, item: "Clean out garage", completed: "false" },

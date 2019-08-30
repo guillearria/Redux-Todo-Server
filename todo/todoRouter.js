@@ -8,7 +8,7 @@ router.get("/", async (req,res) => {
   try {
     const todos = await db.getAll()
     
-    res.status(200).json({ todos })
+    res.status(200).json(todos)
   } catch (error) {
     res.status(500).json({ error: "Server Error"})
   }
@@ -17,11 +17,11 @@ router.get("/", async (req,res) => {
 router.post("/", async (req, res) => {
   try {
     if (req.body.item) {
-      const todos = await db.insert()
+      const todos = await db.insert(req.body)
   
-      res.status(201).json({ todos })
+      res.status(201).json(todos)
     } else {
-      res.status(400).json({ error: "Todo name required."})
+      res.status(400).json({ error: "Todo item field is required." })
     }
   } catch (error) {
     res.status(500).json({ error: "Server Error"})

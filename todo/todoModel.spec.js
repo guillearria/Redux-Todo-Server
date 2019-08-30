@@ -61,7 +61,9 @@ describe("todoModel.js", () => {
       await Todo.insert({ item: "Clean out garage" });
       await Todo.insert({ item: "Pay parking ticket" });
 
-      expect(todo).toEqual([{ id:1, item: "Clean out garage", completed: "false" }, { id:2, item: "Pay parking ticket", completed: "false" }]);
+      const todos = await Todo.getAll()
+
+      expect(todos).toEqual([{ id:1, item: "Clean out garage", completed: "false" }, { id:2, item: "Pay parking ticket", completed: "false" }]);
     });
   });
 
