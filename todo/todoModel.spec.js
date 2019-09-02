@@ -5,7 +5,6 @@ const Todo = require("./todoModel.js");
 describe("todoModel.js", () => {
   beforeEach(async () => {
     await db("todos").truncate(); // Clears DB before each test
-    console.log('inside before each')
   });
 
   describe("insert()", () => {

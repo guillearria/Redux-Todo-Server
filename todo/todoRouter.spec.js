@@ -160,7 +160,7 @@ describe("todoRouter.js", () => {
         .put("/api/todos/1")
         .send({ completed: "true" })
         .then(res => {
-          expect(res.body).toEqual({ message: "Todo item not found." });
+          expect(res.body).toEqual({ error: "Todo item not found." });
         });
     });
   });

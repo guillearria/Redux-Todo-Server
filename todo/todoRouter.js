@@ -1,12 +1,13 @@
 const express = require("express")
 
-const db = require("../todo/todoModel")
+const todoModel = require("../todo/todoModel")
+const db = require("../data/dbConfig")
 
 const router = express.Router()
 
 router.get("/", async (req,res) => {
   try {
-    const todos = await db.getAll()
+    const todos = await todoModel.getAll()
     
     res.status(200).json(todos)
   } catch (error) {
@@ -14,10 +15,20 @@ router.get("/", async (req,res) => {
   }
 })
 
+// router.get("/:id", async (req,res) => {
+//   try {
+//     const todo = await todoModel("todos").where({ id: req.params.id })
+    
+//     res.status(200).json(todo)
+//   } catch (error) {
+//     res.status(500).json({ error: "Server error."})
+//   }
+// })
+
 router.post("/", async (req, res) => {
   try {
     if (req.body.item) {
-      const todos = await db.insert(req.body)
+      const todos = await todoModel.insert(req.body)
   
       res.status(201).json(todos)
     } else {
@@ -28,11 +39,15 @@ router.post("/", async (req, res) => {
   }
 })
 
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
-    const todos = await db.toggleCompleted(req.params.id)
-
-    
+    const todo = await db("todos").where({ id: req.params.id }).first()
+    if (todo) {
+      const todos = await todoModel.toggleCompleted(req.params.id)
+      res.status(200).json(todos)      
+    } else {
+      res.status(404).json({ error: "Todo item not found." })
+    }
   } catch (error) {
     res.status(500).json({ error: "Server error."})
   }
